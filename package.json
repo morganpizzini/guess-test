@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:guess": "ng build --extra-webpack-config extend.webpack.js",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

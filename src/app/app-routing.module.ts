@@ -9,6 +9,7 @@ import {
 } from '@gilsdav/ngx-translate-router';
 import { LocalizeRouterHttpLoader } from '@gilsdav/ngx-translate-router-http-loader';
 import { TranslateService } from '@ngx-translate/core';
+import { AppComponent } from './app.component';
 
 /**
  * Http loader function for i18n
@@ -29,17 +30,31 @@ export function HttpLoaderFactory(
 
 const routes: Routes = [
   {
-    path: 'first',
-    loadChildren: () => import('./modules/first/first.module').then(m => m.FirstModule)
-  },
-  {
-    path: 'second',
-    loadChildren: () => import('./modules/second/second.module').then(m => m.SecondModule)
+    path: 'admin',
+    children: [
+      {
+        path: 'second',
+        loadChildren: () => import('./modules/second/second.module').then(m => m.SecondModule)
+      }
+    ]
   },
   {
     path: '',
-    pathMatch: 'full',
-    redirectTo: 'first'
+    children: [
+      {
+        path: 'first',
+        loadChildren: () => import('./modules/first/first.module').then(m => m.FirstModule)
+      },
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'first'
+      },
+      {
+        path: '**',
+        component: AppComponent
+      }
+    ]
   }
 ];
 

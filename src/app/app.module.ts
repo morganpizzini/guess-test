@@ -5,37 +5,48 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { PerfumeModule } from 'perfume.js/angular';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+// Perfume.js config, supports AOT and DI
+export const PerfumeConfig = {
+  firstContentfulPaint: true,
+  firstPaint: true,
+  firstInputDelay: true,
+  dataConsumption: true,
+  navigationTiming: true,
+  // analytics
+  browserTracker: true,
+  // logging
+  warning: true
+};
 
-
-registerLocaleData(localeIt, 'it');
+// registerLocaleData(localeIt, 'it');
 
 /**
  * translation loader
  */
-export function createTranslateLoader(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/locales/', '.json');
-}
+// export function createTranslateLoader(http: HttpClient) {
+//   return new TranslateHttpLoader(http, './assets/locales/', '.json');
+// }
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: createTranslateLoader,
-        deps: [HttpClient]
-      }
-    })
+    PerfumeModule.forRoot(PerfumeConfig),
+    // TranslateModule.forRoot({
+    //   loader: {
+    //     provide: TranslateLoader,
+    //     useFactory: createTranslateLoader,
+    //     deps: [HttpClient]
+    //   }
+    // })
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

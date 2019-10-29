@@ -1,20 +1,23 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { PerfumeAfterViewInit } from 'perfume.js/angular';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-  title = 'guess-test';
+// @PerfumeAfterViewInit('MainLayout')
+export class AppComponent implements AfterViewInit {
   /**
    *
    */
   constructor(
-    translate: TranslateService) {
+    // translate: TranslateService
+  ) {
     // add langs
-    translate.addLangs(['it', 'en']);
-
+    // translate.addLangs(['it', 'en']);
   }
+  title = 'guess-test';
+  ngAfterViewInit() {}
 }

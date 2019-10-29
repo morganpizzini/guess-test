@@ -1,32 +1,23 @@
-import { Location } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {
-  LocalizeParser,
-  LocalizeRouterModule,
-  LocalizeRouterSettings
-} from '@gilsdav/ngx-translate-router';
-import { LocalizeRouterHttpLoader } from '@gilsdav/ngx-translate-router-http-loader';
-import { TranslateService } from '@ngx-translate/core';
 import { AppComponent } from './app.component';
 
 /**
  * Http loader function for i18n
  */
-export function HttpLoaderFactory(
-  translate: TranslateService,
-  location: Location,
-  settings: LocalizeRouterSettings,
-  http: HttpClient
-) {
-  return new LocalizeRouterHttpLoader(
-    translate,
-    location,
-    { ...settings, alwaysSetPrefix: true },
-    http
-  );
-}
+// export function HttpLoaderFactory(
+//   translate: TranslateService,
+//   location: Location,
+//   settings: LocalizeRouterSettings,
+//   http: HttpClient
+// ) {
+//   return new LocalizeRouterHttpLoader(
+//     translate,
+//     location,
+//     { ...settings, alwaysSetPrefix: true },
+//     http
+//   );
+// }
 
 const routes: Routes = [
   {
@@ -60,15 +51,18 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes),
-    LocalizeRouterModule.forRoot(routes, {
-      parser: {
-        provide: LocalizeParser,
-        useFactory: HttpLoaderFactory,
-        deps: [TranslateService, Location, LocalizeRouterSettings, HttpClient]
-      }
-    })
+    RouterModule.forRoot(routes)
+    // LocalizeRouterModule.forRoot(routes, {
+    //   parser: {
+    //     provide: LocalizeParser,
+    //     useFactory: HttpLoaderFactory,
+    //     deps: [TranslateService, Location, LocalizeRouterSettings, HttpClient]
+    //   }
+    // })
   ],
-  exports: [RouterModule, LocalizeRouterModule]
+  exports: [
+    RouterModule
+    // LocalizeRouterModule
+  ]
 })
 export class AppRoutingModule {}
